@@ -1,0 +1,8 @@
+docs
+src
+test
+webpack*.js
+yarn.lock
+.travis.yml
+.babelrc
+.eslintrc

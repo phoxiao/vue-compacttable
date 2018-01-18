@@ -3,14 +3,13 @@ const webpack = require("webpack");
 const merge = require("webpack-merge");
 
 module.exports = merge(require("./webpack.base"), {
-  entry: {
-    index: "./src/index.js"
-  },
+  entry: "./src/compactable.vue",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].js",
+    filename: "vue-compactable.min.js",
     library: "vue-compactable",
-    libraryTarget: "umd"
+    libraryTarget: "umd",
+    umdNamedDefine: true
   },
   plugins: [
     new webpack.optimize.UglifyJsPlugin({

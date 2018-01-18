@@ -1,7 +1,7 @@
-import easytable from "./easyTable";
+import compactable from "./compactable.vue";
 
 export default {
   install(Vue) {
-    Vue.component("vue-easytable", easytable);
+    Vue.component("compactable", compactable);
   }
 };
