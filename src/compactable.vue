@@ -35,6 +35,24 @@
 <script>
 export default {
   props: ["column", "data", "defaultRowNum", "defaultColumnNum"],
+  props: {
+    column: {
+      type: Array,
+      required: true
+    },
+    data: {
+      type: Array,
+      required: true
+    },
+    defaultRowNum: {
+      type: Number,
+      default: 0
+    },
+    defaultColumnNum: {
+      type: Number,
+      default: 0
+    }
+  },
   data() {
     return {};
   },

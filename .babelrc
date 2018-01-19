@@ -19,5 +19,17 @@
         "regenerator": true
       }
     ]
-  ]
+  ],
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "env",
+          {
+            "targets": { "node": "current" }
+          }
+        ]
+      ]
+    }
+  }
 }
