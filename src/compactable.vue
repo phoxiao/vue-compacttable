@@ -34,7 +34,6 @@
 
 <script>
 export default {
-  props: ["column", "data", "defaultRowNum", "defaultColumnNum"],
   props: {
     column: {
       type: Array,
