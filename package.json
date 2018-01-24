@@ -1,6 +1,6 @@
 {
   "name": "vue-compactable",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A easy to use table components",
   "main": "dist/vue-compactable.min.js",
   "directories": {
@@ -42,7 +42,11 @@
     "webpack-merge": "^4.1.1"
   },
   "jest": {
-    "moduleFileExtensions": ["js", "json", "vue"],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
     "transform": {
       ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
       "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
