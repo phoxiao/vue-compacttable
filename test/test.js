@@ -43,4 +43,44 @@ describe("compatable.vue", () => {
     wrapper.setProps({ column, data });
     expect(wrapper.findAll(".dataRow")).toHaveLength(3);
   });
+  it("generate custom cell", () => {
+    const column = [
+      [
+        {
+          title: "titleA",
+          key: "name",
+          align: "center"
+        },
+        {
+          title: "titleB",
+          key: "value",
+          align: "center",
+          render: (h, params) => {
+            return h("button", {
+              style: {
+                color: "red"
+              }
+            });
+          }
+        }
+      ]
+    ];
+    const data = [
+      {
+        name: "a",
+        value: "b"
+      },
+      {
+        name: "a",
+        value: "b"
+      },
+      {
+        name: "a",
+        value: "b"
+      }
+    ];
+    wrapper.setProps({ column, data });
+    console.log(wrapper.html());
+    expect(wrapper.html()).toContain("button");
+  });
 });

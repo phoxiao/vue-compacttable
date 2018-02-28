@@ -15,9 +15,7 @@
            <td v-for="(col, colIndex) in column[column.length - 1]" :key="colIndex"
             v-if="(colIndex + 1) <=  item.length && item[col.key].show !== 'false'"
             :colspan="item[col.key].colspan" :rowspan="item[col.key].rowspan">
-            <div :style="{ textAlign: col.align, width: col.width }">
-              <span>{{ item[col.key].value }}</span>
-            </div>
+            <Cell :column="col" :row="item"></Cell>
            </td>
         </tr>
         <tr v-if="blankRowNum > 0" class="blankRow"
@@ -33,7 +31,10 @@
 </template>
 
 <script>
+import Cell from "./cell.vue";
+
 export default {
+  components: { Cell },
   props: {
     column: {
       type: Array,
