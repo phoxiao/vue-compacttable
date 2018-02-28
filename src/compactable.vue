@@ -56,6 +56,7 @@ export default {
     return {};
   },
   computed: {
+    // set default blank row number
     blankRowNum() {
       const number = this.defaultRowNum - this.tbodyData.length;
       if (number < 0) {
@@ -70,8 +71,9 @@ export default {
       this.data.forEach(row => {
         const keys = Object.keys(row);
         const newRow = {};
-        const cellInfo = row.cellInfo;
+        let cellInfo = row.cellInfo;
         if (cellInfo) {
+          cellInfo = JSON.parse(JSON.stringify(cellInfo));
           keys.splice(keys.indexOf("cellInfo"), 1);
         }
         keys.forEach(cellKey => {

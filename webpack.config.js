@@ -7,7 +7,7 @@ module.exports = merge(require("./webpack.base"), {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "vue-compactable.min.js",
-    library: "vue-compactable",
+    library: "vuecompactable",
     libraryTarget: "umd",
     umdNamedDefine: true
   },
