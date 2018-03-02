@@ -4,7 +4,7 @@ export default {
   props: {
     row: Object,
     render: Function,
-    index: Number,
+    index: String,
     column: Object
   },
   render: (h, ctx) => {
