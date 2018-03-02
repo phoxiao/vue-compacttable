@@ -1,6 +1,6 @@
 {
   "name": "vue-compactable",
-  "version": "0.2.26",
+  "version": "0.2.27",
   "description": "A easy to use table components",
   "main": "dist/vue-compactable.min.js",
   "directories": {
