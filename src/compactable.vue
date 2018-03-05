@@ -12,7 +12,7 @@
               <thead v-if="column">
                 <tr v-for="(head, hIndex) in column" :key="hIndex">
                   <th v-for="(col, index) in head" :key="index" :colspan="col.colspan" :rowspan="col.rowspan" v-if="col.show !== 'false' && col.fixed === true">
-                    <div :style="{width: col.width + 'px', height: col.height + 'px'}">
+                    <div :style="{width: col.width + 'px', height: col.height + 'px', 'line-height': col.height + 'px'}">
                       <span>{{ col.title }}</span>
                     </div>
                   </th>
@@ -49,7 +49,7 @@
               <thead>
                 <tr v-for="(head, hIndex) in column" :key="hIndex">
                   <th v-for="(col, index) in head" :key="index" :colspan="col.colspan" :rowspan="col.rowspan" v-if="col.show !== 'false'">
-                    <div :style="{width: col.width + 'px', height: col.height + 'px'}">
+                    <div :style="{width: col.width + 'px', height: col.height + 'px','line-height': col.height + 'px'}">
                       <span>{{ col.title }}</span>
                     </div>
                   </th>
@@ -251,9 +251,11 @@ export default {
   width: 100%;
   position: relative;
 }
+
 .table {
   width: 100%;
 }
+
 .fixedTable {
   table-layout: fixed;
 }
@@ -266,6 +268,7 @@ export default {
   background-color: #fff;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.1);
 }
+
 .fixedColumnBody {
   overflow-y: hidden;
 }
