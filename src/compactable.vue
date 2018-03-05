@@ -12,7 +12,7 @@
               <thead v-if="column">
                 <tr v-for="(head, hIndex) in column" :key="hIndex">
                   <th v-for="(col, index) in head" :key="index" :colspan="col.colspan" :rowspan="col.rowspan" v-if="col.show !== 'false' && col.fixed === true">
-                    <div :style="{width: col.width + 'px', height: col.height + 'px'}">
+                    <div :style="{lineHeight: col.height + 'px', height: col.height + 'px'}">
                       <span>{{ col.title }}</span>
                     </div>
                   </th>
@@ -49,7 +49,7 @@
               <thead>
                 <tr v-for="(head, hIndex) in column" :key="hIndex">
                   <th v-for="(col, index) in head" :key="index" :colspan="col.colspan" :rowspan="col.rowspan" v-if="col.show !== 'false'">
-                    <div :style="{width: col.width + 'px', height: col.height + 'px'}">
+                    <div :style="{lineHeight: col.height + 'px', height: col.height + 'px'}">
                       <span>{{ col.title }}</span>
                     </div>
                   </th>
