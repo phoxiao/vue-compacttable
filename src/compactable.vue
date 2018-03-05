@@ -5,6 +5,10 @@
         <div class="table-wrapper fixedColumn" :style="{width: fixedColumnWidth + 'px'}" v-if="fixColumn === true">
           <div class="head-wrapper">
             <table class="table fixedTable" v-if="data && Array.isArray(data) && data.length > 0" cellspacing="0" cellpadding="0">
+              <colgroup>
+                <col v-for="(col, hIndex) in columnStyleData" :key="hIndex" :width="col.width" v-if="col.fixed === true">
+                </col>
+              </colgroup>
               <thead v-if="column">
                 <tr v-for="(head, hIndex) in column" :key="hIndex">
                   <th v-for="(col, index) in head" :key="index" :colspan="col.colspan" :rowspan="col.rowspan" v-if="col.show !== 'false' && col.fixed === true">
@@ -17,7 +21,11 @@
             </table>
           </div>
           <div class="body-wrapper fixedColumnBody" @scroll="fixColumnScroll">
-            <table class="table fixedTable">
+            <table class="table fixedTable" cellspacing="0" cellpadding="0">
+              <colgroup>
+                <col v-for="(col, hIndex) in columnStyleData" :key="hIndex" :width="col.width" v-if="col.fixed === true">
+                </col>
+              </colgroup>
               <tbody>
                 <tr v-for="(item, index) in tbodyData" :key="index" class="dataRow">
                   <td v-for="(col, colIndex) in column[column.length - 1]" :key="colIndex" v-if="(colIndex + 1) <=  item.length && item[col.key].show !== 'false' && col.fixed === true " :colspan="item[col.key].colspan" :rowspan="item[col.key].rowspan">
@@ -32,8 +40,12 @@
           </div>
         </div>
         <div class="table-wrapper">
-          <div class="head-wrapper">
+          <div class="head-wrapper columnHead" @scroll="tableHeadScroll">
             <table class="table fixedTable" v-if="data && Array.isArray(data) && data.length > 0" cellspacing="0" cellpadding="0">
+              <colgroup>
+                <col v-for="(col, hIndex) in columnStyleData" :key="hIndex" :width="col.width">
+                </col>
+              </colgroup>
               <thead>
                 <tr v-for="(head, hIndex) in column" :key="hIndex">
                   <th v-for="(col, index) in head" :key="index" :colspan="col.colspan" :rowspan="col.rowspan" v-if="col.show !== 'false'">
@@ -45,8 +57,12 @@
               </thead>
             </table>
           </div>
-          <div class="body-wrapper" @scroll="tableScroll">
-            <table class="table fixedTable">
+          <div class="body-wrapper columnBody" @scroll="tableBodyScroll">
+            <table class="table fixedTable" cellspacing="0" cellpadding="0">
+              <colgroup>
+                <col v-for="(col, hIndex) in columnStyleData" :key="hIndex" :width="col.width">
+                </col>
+              </colgroup>
               <tbody>
                 <tr v-for="(item, index) in tbodyData" :key="index" class="dataRow">
                   <td v-for="(col, colIndex) in column[column.length - 1]" :key="colIndex" v-if="(colIndex + 1) <=  item.length && item[col.key].show !== 'false'" :colspan="item[col.key].colspan" :rowspan="item[col.key].rowspan">
@@ -126,9 +142,6 @@ export default {
       default: 0
     }
   },
-  data() {
-    return {};
-  },
   computed: {
     // set default blank row number
     blankRowNum() {
@@ -138,6 +151,27 @@ export default {
       } else {
         return number;
       }
+    },
+    columnStyleData() {
+      const styleData = [];
+      // if there have mutil level column, use last level.
+      const columnLevel = this.column.length;
+      if (this.column[columnLevel - 1]) {
+        this.column[columnLevel - 1].forEach(col => {
+          if (col.width) {
+            styleData.push({
+              width: col.width,
+              fixed: col.fixed
+            });
+          } else {
+            styleData.push({
+              width: 100,
+              fixed: col.fixed
+            });
+          }
+        });
+      }
+      return styleData;
     },
     tbodyData() {
       const tbodyData = [];
@@ -193,15 +227,20 @@ export default {
     }
   },
   mounted() {
-    this.fixColumnTable = this.$el.querySelector(".fixColumnBody");
-    this.tableBody = this.$el.querySelector(".tableBody");
+    this.fixColumnTable = this.$el.querySelector(".fixedColumnBody");
+    this.tableBody = this.$el.querySelector(".columnBody");
+    this.tableHead = this.$el.querySelector(".columnHead");
   },
   methods: {
     fixColumnScroll(event) {
-      this.tableBody.scrollTop = this.fixColumnScroll.scrollTop;
+      this.tableBody.scrollTop = this.fixColumnTable.scrollTop;
     },
-    tableScroll(event) {
-      this.fixColumnScroll.scrollTop = this.tableBody.scrollTop;
+    tableHeadScroll(event) {
+      this.tableBody.scrollLeft = this.tableHead.scrollLeft;
+    },
+    tableBodyScroll(event) {
+      this.fixColumnTable.scrollTop = this.tableBody.scrollTop;
+      this.tableHead.scrollLeft = this.tableBody.scrollLeft;
     }
   }
 };
@@ -231,13 +270,26 @@ export default {
   overflow-y: hidden;
 }
 
+.table-wrapper {
+  width: 100%;
+  overflow: auto;
+}
+
+.head-wrapper {
+  overflow: auto;
+}
+
 .body-wrapper {
   overflow: auto;
   height: 500px;
 }
-.table-wrapper {
-  width: 100%;
-  overflow: auto;
+
+.head-wrapper.columnHead::-webkit-scrollbar {
+  display: none;
+}
+
+.body-wrapper.fixedColumnBody::-webkit-scrollbar {
+  display: none;
 }
 
 p {

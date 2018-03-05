@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js build
+  /usr/local/bin/node /usr/local/Cellar/yarn/1.5.1/libexec/bin/yarn.js test
 
 PATH: 
   /usr/local/sbin:/Users/kivi/workspace/develop/flutter/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -16,7 +16,7 @@ Platform:
 npm manifest: 
   {
     "name": "vue-compactable",
-    "version": "0.2.31",
+    "version": "0.2.34",
     "description": "A easy to use table components",
     "main": "dist/vue-compactable.min.js",
     "directories": {
@@ -5405,9 +5405,9 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 2
+  Exit code: 1
   Command: sh
-  Arguments: -c rm -rf dist && NODE_ENV=production webpack
+  Arguments: -c jest
   Directory: /Users/kivi/workspace/workcode/framework/vue-compacttable
   Output:
   
